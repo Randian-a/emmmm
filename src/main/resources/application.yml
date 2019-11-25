@@ -9,5 +9,16 @@ spring:
   mvc:
     favicon:
       enabled: false
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    mode: HTML
+
 mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+
