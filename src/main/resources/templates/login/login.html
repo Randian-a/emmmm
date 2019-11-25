@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>登陆</h1>
+    <span th:text="${msg}"></span>
     <form th:action="loginIn" method="post">
         <label>用户名：</label>
         <input name="username" type="text"/>
