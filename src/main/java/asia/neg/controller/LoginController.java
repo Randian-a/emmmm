@@ -8,8 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("loginIn")
-    public ModelAndView loginIn(String username, String password) {
+    public ModelAndView loginIn(String username, String password , HttpSession session) {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUnameEqualTo(username);
         List<UserPojo> users = userService.selectByExample(userExample);
@@ -36,6 +35,8 @@ public class LoginController {
             for ( UserPojo u : users){
                 if(u.getPassword().equals(password)||u.getPassword()==password){
                     view.setViewName("index/index");
+                    session.setAttribute("user",u);
+                    System.out.println("session-set()"+u);
                     return view;
                 }else {
                     view.addObject("msg","账号或密码错误");
