@@ -5,17 +5,35 @@
     <title>登陆</title>
 </head>
 <body>
-    <h1>登陆</h1>
-    <span th:text="${msg}"></span>
-    <form th:action="loginIn" method="post">
-        <label>用户名：</label>
-        <input name="username" type="text"/>
-        <p></p>
-        <label>密码：</label>
-        <input name="password" type="password"/>
-        <p></p>
-        <input value="登陆" type="submit"/>
-        <input value="清空" type="reset"/>
-    </form>
+<h1>登陆</h1>
+<span th:text="${msg}"></span>
+<form th:action="@{/loginIn}" method="post">
+    <label>用户名：</label>
+    <input name="username" type="text" id="name"/>
+    <p></p>
+    <label>密码：</label>
+    <input name="password" type="password" id="pwd"/>
+    <p></p>
+    <input value="登陆" type="submit" id="submit"/>
+    <input value="清空" type="reset"/>
+</form>
 </body>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script>
+
+    $("#submit").click(function () {
+        var name = $("#name").val();
+        var pwd = $("#pwd").val();
+        var nameReg=/^[\da-zA-Z_\u4e00-\u9f5a]{4,16}$/; //4-16位字母,数字,汉字,下划线
+        var pwdReg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/;
+        if ((!nameReg.test(name))||(!pwdReg.test(pwd))) {
+            console.log((nameReg.test(name)));
+            console.log((pwdReg.test(pwd)));
+            alert("请核对账号密码格式后登陆");
+            return false;
+        } else {
+            return true;
+        }
+    });
+</script>
 </html>

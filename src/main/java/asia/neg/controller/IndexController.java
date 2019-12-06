@@ -41,5 +41,13 @@ public class IndexController {
 
         return "login/login";
     }
+    /**
+     * 注册页面
+     * @return
+     */
+    @RequestMapping("/toRegisterPage")
+    public String toRegister() {
 
+        return "register/register";
+    }
 }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <span th:text="${msg}"></span>
+    <form th:action="@{register/userRegister}" method="post">
+        <label>账号：</label>
+        <input name="uname" id="uname" type="text" placeholder="请输入4-16位字母,数字,汉字,下划线"/>
+        <span id="unameSp"></span>
+        <p></p>
+        <label>姓名：</label>
+        <input name="rname" type="text"/>
+        <p></p>
+        <label>手机：</label>
+        <input name="phone" id="phone" type="text" placeholder="请输入手机号"/>
+        <span id="phoneSp"></span>
+        <p></p>
+        <label>性别：</label>
+        <!--<input name="sex" type="text"/>-->
+        <select name="sex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+        <p></p>
+        <label>年龄：</label>
+        <input name="age" type="text"/>
+        <p></p>
+        <label>输入密码：</label>
+        <input name="password" id="password" type="password" placeholder="请输入6位数以上且至少一位数字或一个字母"/>
+        <span id="passwordSp"></span>
+        <p></p>
+        <label>再次输入密码：</label>
+        <input name="passwordAgain" id="passwordAgain" type="password" placeholder="请再次输入密码"/>
+        <span id="passwordAgainSp"></span>
+        <p></p>
+        <input value="注册" type="submit" id="submit"/>
+        <input value="清空" type="reset"/>
+    </form>
+</body>
+<script th:src="@{/js/jquery-3.3.1.min.js}" ></script>
+<script>
+    $("#uname").blur(function(){
+        var val = $("#uname").val();
+        var nameReg=/^[\da-zA-Z_\u4e00-\u9f5a]{4,16}$/;
+        if(!nameReg.test(val)){
+            $("#unameSp").text("用户名应该为4-16位字母,数字,汉字,下划线").css("color","red");
+        }else {
+            $.ajax({
+                url:"register/ifUname",
+                data:{"uname":val},
+                type:"post",
+                success:function (data) {
+                    if(data.code==200){
+                        $("#unameSp").text("√").css("color","green");
+                    }else{
+                        $("#unameSp").text("该用户名已被注册").css("color","red");
+                    }
+                },
+                error:function (data) {
+                }
+            }); // ajax -end
+        }
+    });
+    $("#password").blur(function(){
+        var reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/;
+        var val = $("#password").val();
+        if(!reg.test(val)){
+            $("#passwordSp").text("密码需要6位数以上且至少一位数字或一个字母").css("color","red");
+        }else{
+            $("#passwordSp").text("√").css("color","green");
+        }
+    });
+    $("#passwordAgain").blur(function(){
+        var val = $("#password").val();
+        var val2 = $("#passwordAgain").val();
+        if(val!=val2){
+            $("#passwordAgainSp").text("两次密码不同").css("color","red");
+        }else{
+            $("#passwordAgainSp").text("√").css("color","green");
+        }
+    });
+
+    $("#phone").blur(function(){
+        var reg=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+        var val = $("#phone").val();
+        if(!reg.test(val)){
+            $("#phoneSp").text("手机号格式错误").css("color","red");
+        }else {
+            $("#phoneSp").text("√").css("color","green");
+        }
+    });
+    $("#submit").click(function () {
+        var pwdReg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/;
+        var pwd = $("#password").val();
+        var pwd2 = $("#passwordAgain").val();
+        var phtonReg=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+        var phoneVal = $("#phone").val();
+        var unameSp =$("#unameSp").text();
+        if((unameSp!="√")||(!pwdReg.test(pwd))||(!pwdReg.test(pwd2))|| (pwd!=pwd2)||(!phtonReg.test(phoneVal)) ){
+            alert("请核对信息");
+            return false;
+        }else {
+            return true;
+        }
+    });
+
+</script>
+</html>
