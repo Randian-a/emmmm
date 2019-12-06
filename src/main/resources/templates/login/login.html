@@ -24,9 +24,9 @@
     $("#submit").click(function () {
         var name = $("#name").val();
         var pwd = $("#pwd").val();
-        var nameReg=/^[\da-zA-Z_\u4e00-\u9f5a]{4,16}$/; //4-16位字母,数字,汉字,下划线
-        var pwdReg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/;
-        if ((!nameReg.test(name))||(!pwdReg.test(pwd))) {
+        var nameReg = /^[\da-zA-Z_\u4e00-\u9f5a]{4,16}$/; //4-16位字母,数字,汉字,下划线
+        var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/;
+        if ((!nameReg.test(name)) || (!pwdReg.test(pwd))) {
             console.log((nameReg.test(name)));
             console.log((pwdReg.test(pwd)));
             alert("请核对账号密码格式后登陆");

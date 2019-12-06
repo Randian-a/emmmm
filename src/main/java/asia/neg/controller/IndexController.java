@@ -34,20 +34,21 @@ public class IndexController {
 
     /**
      * login
+     *
      * @return
      */
     @RequestMapping("/toLogin")
     public String login() {
-
         return "login/login";
     }
+
     /**
      * 注册页面
+     *
      * @return
      */
     @RequestMapping("/toRegisterPage")
     public String toRegister() {
-
         return "register/register";
     }
 }

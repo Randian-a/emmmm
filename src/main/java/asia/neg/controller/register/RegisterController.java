@@ -57,7 +57,6 @@ public class RegisterController {
             mv.addObject("msg", "注册失败");
             return mv;
         }
-
     }
 
     public static int genItemId() {
@@ -68,7 +67,7 @@ public class RegisterController {
         int end2 = random.nextInt(99);
         //如果不足两位前面补0
         String str = millis + String.format("%02d", end2);
-        int id =  new Long(str) .intValue();
+        int id = new Long(str).intValue();
         return id;
     }
 }
